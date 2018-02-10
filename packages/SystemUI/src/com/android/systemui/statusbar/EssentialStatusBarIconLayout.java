@@ -45,12 +45,15 @@ public class EssentialStatusBarIconLayout extends AlphaOptimizedLinearLayout {
 	private void initialize() {
 		Resources resources = mContext.getResources();
 		this.mCameraNotchRect = new Rect((int) resources.getDimension(R.dimen.essential_camera_notch_position_x), 0, (int) (resources.getDimension(R.dimen.essential_camera_notch_position_x) + resources.getDimension(R.dimen.essential_camera_notch_width)), (int) resources.getDimension(R.dimen.essential_camera_notch_height));
+		System.out.println("BLUG: init: " + this.mCameraNotchRect.left + " " + this.mCameraNotchRect.top + " " + this.mCameraNotchRect.right + " " + this.mCameraNotchRect.bottom);
 	}
 
 	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
+		System.out.println("BLUG: layout called");
 		if (((WindowManager)this.mContext.getSystemService("window")).getDefaultDisplay().getRotation() == Surface.ROTATION_0) {
 			int children = getChildCount();
+			System.out.println("BLUG: number of children: " + children);
 			ArrayList<View> childrenNeedingRelayout = new ArrayList<>();
 			for(int i = 0; i < children ; i++) {
 				View child = getChildAt(i);
@@ -59,6 +62,7 @@ public class EssentialStatusBarIconLayout extends AlphaOptimizedLinearLayout {
 					if(Rect.intersects(childRect, mCameraNotchRect) || mCameraNotchRect.contains(childRect)) {
 						//Icon is in notch
 						childrenNeedingRelayout.add(child);
+						System.out.println("BLUG: icon " + i + "needs layout");
 					}
 				}
 			}
@@ -71,6 +75,7 @@ public class EssentialStatusBarIconLayout extends AlphaOptimizedLinearLayout {
 				int iconWidth = currentRight - currentLeft;
 				if(startLeft != mCameraNotchRect.right)
 					startLeft += iconWidth;
+				System.out.println("BLUG: calling layout: " + startLeft + " " + currentTop + " " + (currentRight+iconWidth) + " " + currentBottom);
 				v.layout(startLeft, currentTop, currentRight+iconWidth, currentBottom);
 			}
 		}
