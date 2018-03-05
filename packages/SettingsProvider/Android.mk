@@ -13,6 +13,15 @@ LOCAL_PACKAGE_NAME := SettingsProvider
 LOCAL_CERTIFICATE := platform
 LOCAL_PRIVILEGED_MODULE := true
 
+LOCAL_STATIC_JAVA_LIBRARIES := \
+    android-support-annotations \
+    android-support-v4 \
+    android-support-v7-appcompat \
+    android-support-v7-preference \
+    android-support-v7-recyclerview \
+    android-support-v14-preference 
+
+
 include $(BUILD_PACKAGE)
 
 ########################
